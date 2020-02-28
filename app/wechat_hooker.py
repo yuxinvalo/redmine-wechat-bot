@@ -4,25 +4,17 @@ from app.utils import getEnvVariable
 from config import logger
 
 groupName = 'GROUP_NAME'
-loggerSwitch = 'LOGGER'
-loggerRec='LOGGER_RECIEVER'
-loggerRecName='LOGGER_RECIEVER_NAME'
+loggerSwitch = 'WECHAT_LOGGER'
+loggerRec='WECHAT_LOGGER_RECIEVER'
+loggerRecName='WECHAT_LOGGER_RECIEVER_NAME'
 
-def initBot():
-    def createBot():
-        try:
-            bot = Bot(cache_path=True, console_qr=True)
-        except Exception as e:
-            traceback.print_tb(e.__traceback__)
-            logger.critical("Oopus, error occurs when log in wechat! Error: " + str(e))
-    createBot()
-    return bot
 
+#  Unused.....
 def createWechatLogger(bot):
     # Create loggerWechat reciever
     envVar = getEnvVariable()
     reciever = None
-    loggerWehat = None
+    loggerWechat = None
     try:
         if envVar[loggerSwitch] == 'ON':
             if envVar[loggerRec] == 'group':
@@ -38,20 +30,20 @@ def createWechatLogger(bot):
     except Exception as e:
         traceback.print_tb(e.__traceback__)
         logger.error("Wechat bot can not find group or person: " + envVar[loggerRecName] + ", Error: " + str(e))
-    return loggerWehat
+    return loggerWechat
 
 
-def getTargetGroup(bot, loggerWehat=None):
+def getTargetGroup(bot, loggerWechat=None):
     targetGroup = None
     try:
         envVar = getEnvVariable()
-        targetGroup = ensure_one(bot.groups().search(envVar[groupName]))#搜索微信群
+        targetGroup = ensure_one(bot.groups().search(envVar[groupName]))
         logger.warning(" Found target group: " + envVar[groupName])
     except Exception as e:
         traceback.print_tb(e.__traceback__)
         logger.error("Oopus, error occurs when searching the target group in wechat! Error: " + str(e))
-        if loggerWehat:
-            loggerWehat.error("Oopus, wechat bot can not find target group : " + envVar[groupName] + "! Error: " + str(e))
+        # if loggerWechat:
+        #     loggerWehat.error("Oopus, wechat bot can not find target group : " + envVar[groupName] + "! Error: " + str(e))
     return targetGroup
 
 def logOutBot(bot, loggerWehat=None):
@@ -61,10 +53,10 @@ def logOutBot(bot, loggerWehat=None):
     except Exception as e:
         traceback.print_tb(e.__traceback__)
         logger.error("Oopus, error occurs when log out wechat! Error: " + str(e))
-        if loggerWehat:
-            loggerWechat.error("Oopus, error occurs when log out wechat bot! Error: " + str(e))
+        # if loggerWehat:
+        #     loggerWechat.error("Oopus, error occurs when log out wechat bot! Error: " + str(e))
 
-def talkToGroup(group, msg, loggerWehat=None):
+def talkToGroup(group, msg, loggerWechat=None):
     try:
         group.send(msg)
         logger.warning(" Send a msg to target group: " + msg)
@@ -72,5 +64,5 @@ def talkToGroup(group, msg, loggerWehat=None):
         traceback.print_tb(e.__traceback__)
         logger.error("Oopus, error occurs when talk to group! Error: " + str(e))
 
-        if loggerWehat:
-            logger.warning("Oopus, error occurs when talk to group ! " + str(e))
+        # if loggerWechat:
+        #     loggerWechat.warning("Oopus, error occurs when talk to group ! " + str(e))

@@ -1,6 +1,6 @@
 import datetime
 import codecs
-CONFIG_FILE = 'app/wechat-redmine_watcher.config'
+CONFIG_FILE = 'app/redmine-wechat-bot.ini'
 
 def getEnvVariable():
     with codecs.open(CONFIG_FILE, 'rb', 'utf-8') as configFile:
@@ -11,16 +11,6 @@ def getEnvVariable():
                 envVar[line.rstrip().split("=")[0]] = line.rstrip().split("=")[1]
         configFile.close()
     return envVar
-
-def log(level, msg):
-    timer = str(datetime.datetime.now())
-    timer = timer[0:19]
-    if level == 0:
-        print(timer + " INFO: " + msg)
-    if level == 1:
-        print(timer + " WARNING: " + msg)
-    if level == 2:
-        print(timer + " ERROR: " + msg)
 
 def getDuration(then, now = datetime.datetime.now(), interval = "default"):
 

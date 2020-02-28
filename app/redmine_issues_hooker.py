@@ -3,7 +3,7 @@ import datetime
 import traceback
 from app.utils import getDuration
 from app.utils import getEnvVariable
-from config import logger
+# from config import logger
 
 targetProjectName = 'TARGET_PROJECT_NAME'
 redmineUrl = 'REDMINE_URL'
@@ -13,8 +13,11 @@ redmineWatcher = 'REDMINE_WATCHER'
 redmineWatcherPasswd = 'REDMINE_WATCHER_PASSWD'
 accessMode = 'ACCESS_MODE'
 redmineKey = 'REMINE_KEY'
-trackFreq = 'TRACK_FREQ'
 groupName = 'GROUP_NAME'
+
+import logging
+logging.config.fileConfig("logger.ini")
+logger = logging.getLogger("redmine-wechat-watcher")
 
 def getRedmine(envVar):
     if envVar[accessMode] == 'key':
@@ -26,36 +29,37 @@ def getRedmine(envVar):
 
     return redmine
 
-
-def getTargetIssues(redmine, projectName, issueCheckTimer, trackFreqSec):
-    projects = redmine.project
-    targetIssues = []
-    targetProjectId = -1
-    now = datetime.datetime.now()
+def getTargetProjectId(redmine, projectName):
     logger.info("Read projects...")
+    projects = redmine.project
+    targetProjectId = None
     for project in projects.all():
         if project.name == projectName:
             logger.info("find target project: " + projectName + " with project id : " + str(project.id))
             targetProjectId = project.id
             break
-    if targetProjectId == -1:
-        logger.warning("Can not locate project: " + projectName +  ", please check project name.")
-        return None
+    return targetProjectId
+
+def getTargetIssues(redmine, projectName, targetProjectId, issueCheckTimer, lastWatchTime):
+    targetIssues = []
+    # now = datetime.datetime.now()
 
     issues = redmine.issue.filter(project_id = targetProjectId, sort='category:desc')
     logger.info("find " + str(len(issues)) + " issues in project : " + projectName)
 
     # get issue time filter constraint
-    logger.debug("filter=ISSUE_TIMER: " + str(issueCheckTimer) + " | TRACK_FREQ: " + trackFreqSec)
+    logger.debug("filter=ISSUE_TIMER: " + str(issueCheckTimer)  + " LAST WATCH TIME: "  + str(lastWatchTime))
 
     try:
         if int(issueCheckTimer) == -1:
             for issue in issues:
-                if issue.updated_on > now - datetime.timedelta(seconds=int(trackFreqSec)):
+                logger.debug("issue " + str(issue.id) + " was updated on " + str(issue.updated_on) + " and last watch time:" + str(lastWatchTime))
+                if issue.updated_on > lastWatchTime:
                     targetIssues.append(issue)
         elif int(issueCheckTimer) > 0:
             for issue in issues:
-                if issue.updated_on > now - datetime.timedelta(seconds=int(trackFreqSec)) and \
+                logger.debug("issue " + str(issue.id) + " was updated on " + str(issue.updated_on) + " and last watch time:" + str(lastWatchTime))
+                if issue.updated_on > lastWatchTime and \
                 issue.created_on > now - datetime.timedelta(days=int(issueCheckTimer)):
                     targetIssues.append(issue)
 
@@ -67,7 +71,7 @@ def getTargetIssues(redmine, projectName, issueCheckTimer, trackFreqSec):
     return targetIssues
 
 def blablaUpdateIssue(issuesToInfo):
-
+    paroleAll = []
     def getHumanReadDuration(duration):
         if duration < 60:
             return str(duration)[0:2] + " seconds ago"
@@ -97,5 +101,7 @@ def blablaUpdateIssue(issuesToInfo):
             duration = getDuration(issue.updated_on, datetime.datetime.now(), 'seconds')
             durationHumanRead = getHumanReadDuration(duration)
             parole = "Issue: #" + str(issue.id) + " Subject: " + issue.subject +" assigned to " + getAssignedUser(issue) +" was updated at " + \
-            durationHumanRead + ", please check " + envVar[redmineUrl] + "/issues/" + str(issue.id)
+            durationHumanRead + ", please check " + envVar[redmineUrl] + "issues/" + str(issue.id)
             logger.info(parole)
+            paroleAll.append(parole)
+    return paroleAll
