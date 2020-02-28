@@ -1,0 +1,41 @@
+# Target project name
+# TARGET_PROJECT_NAME=EXAMPLE
+
+TARGET_PROJECT_NAME=TEST
+
+# REDMINE url
+# REDMINE_URL=http://redmine.com/
+
+REDMINE_URL=http://192.168.1.35:10083/
+
+# The issue created before x day that you want to ignore
+# -1 means all issues will be tracked
+ISSUE_TIMER=-1
+
+# Redmine account configuration
+# You can choose 'account' or 'key' to access redmine
+# Make sure that the account/key has permission to read the target project
+# ACCESS_MODE=key/account
+# REDMINE_WATCHER=account_login
+# REDMINE_WATCHER_PASSWD=account_passwd
+# REMINE_KEY=redmine_key
+
+
+ACCESS_MODE=key
+REMINE_KEY=2ec2d81e708a4428a002c3ebe6f26a641575cb2c
+
+
+# Set scan frequency by second
+TRACK_FREQ=30
+
+# Wechat target group name, which group you want to send your msg
+# GROUP_NAME=example
+GROUP_NAME=test
+
+# Wechat log settings
+# WECHAT_LOGGER=ON/OFF
+# WECHAT_LOGGER_RECIEVER=person/group
+# WECHAT_LOGGER_RECIEVER_NAME=exemple
+WECHAT_LOGGER=ON
+WECHAT_LOGGER_RECIEVER=group
+WECHAT_LOGGER_RECIEVER_NAME=test
