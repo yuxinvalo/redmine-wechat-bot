@@ -1,0 +1,32 @@
+Fri, 28 Feb 2020 09:56:49 <ipython-input-24-9de30398c547>[line:24] CRITICAL Oopus, error occurs! Error: [Errno 2] No such file or directory: 'wechat-redmine_watcher.config'
+Fri, 28 Feb 2020 09:58:43 <ipython-input-25-6ac2b7ac8f4f>[line:24] CRITICAL Oopus, error occurs! Error: [Errno 2] No such file or directory: 'wechat-redmine_watcher.config'
+Fri, 28 Feb 2020 09:59:03 <ipython-input-26-6ac2b7ac8f4f>[line:24] CRITICAL Oopus, error occurs! Error: [Errno 2] No such file or directory: 'wechat-redmine_watcher.config'
+Fri, 28 Feb 2020 09:59:30 <ipython-input-27-6ac2b7ac8f4f>[line:24] CRITICAL Oopus, error occurs! Error: [Errno 2] No such file or directory: 'wechat-redmine_watcher.config'
+Fri, 28 Feb 2020 11:16:21 main.py[line:25] CRITICAL Oopus, error occurs! Error: [Errno 2] No such file or directory: 'wechat-redmine_watcher.config'
+Fri, 28 Feb 2020 11:18:36 redmine_issues_hooker.py[line:41] INFO Read projects...
+Fri, 28 Feb 2020 11:18:36 redmine_issues_hooker.py[line:45] INFO find target project: TEST with project id : 1
+Fri, 28 Feb 2020 11:18:36 redmine_issues_hooker.py[line:55] INFO find 44 issues in project : TEST
+Fri, 28 Feb 2020 11:18:36 redmine_issues_hooker.py[line:60] DEBUG filter=ISSUE_TIMER: -1 | TRACK_FREQ: 8800
+Fri, 28 Feb 2020 11:18:36 redmine_issues_hooker.py[line:79] INFO find 0 updated issues [] in project : TEST
+Fri, 28 Feb 2020 11:18:36 redmine_issues_hooker.py[line:106] WARNING No updated issues found.
+Fri, 28 Feb 2020 11:19:24 redmine_issues_hooker.py[line:41] INFO Read projects...
+Fri, 28 Feb 2020 11:19:24 redmine_issues_hooker.py[line:45] INFO find target project: TEST with project id : 1
+Fri, 28 Feb 2020 11:19:25 redmine_issues_hooker.py[line:55] INFO find 44 issues in project : TEST
+Fri, 28 Feb 2020 11:19:25 redmine_issues_hooker.py[line:60] DEBUG filter=ISSUE_TIMER: -1 | TRACK_FREQ: 8800
+Fri, 28 Feb 2020 11:19:25 redmine_issues_hooker.py[line:79] INFO find 0 updated issues [] in project : TEST
+Fri, 28 Feb 2020 11:19:25 redmine_issues_hooker.py[line:106] WARNING No updated issues found.
+Fri, 28 Feb 2020 12:21:07 <ipython-input-28-ccee9ad0e28a>[line:21] CRITICAL Oopus, error occurs when log in wechat! Error: name 'Bot' is not defined
+Fri, 28 Feb 2020 12:21:32 <ipython-input-29-ef01d54ab6ce>[line:22] CRITICAL Oopus, error occurs when log in wechat! Error: name 'Bot' is not defined
+Fri, 28 Feb 2020 12:34:28 wechat_hooker.py[line:40] ERROR Wechat bot can not find group or person: test, Error: not found
+Fri, 28 Feb 2020 12:34:28 wechat_hooker.py[line:52] ERROR Oopus, error occurs when searching the target group in wechat! Error: not found
+Fri, 28 Feb 2020 12:34:28 wechat_hooker.py[line:73] ERROR Oopus, error occurs when talk to group! Error: 'NoneType' object has no attribute 'send'
+Fri, 28 Feb 2020 12:37:41 wechat_hooker.py[line:40] ERROR Wechat bot can not find group or person: test, Error: not found
+Fri, 28 Feb 2020 12:37:41 wechat_hooker.py[line:52] ERROR Oopus, error occurs when searching the target group in wechat! Error: not found
+Fri, 28 Feb 2020 12:37:41 <ipython-input-1-da09dc7963f0>[line:19] ERROR Can not locate target group!
+Fri, 28 Feb 2020 12:42:27 wechat_hooker.py[line:40] ERROR Wechat bot can not find group or person: test, Error: name 'receiver' is not defined
+Fri, 28 Feb 2020 12:42:27 wechat_hooker.py[line:49] WARNING  Found target group: test
+Fri, 28 Feb 2020 12:42:28 wechat_hooker.py[line:70] WARNING  Send a msg to target group: Hi I am too hungry..
+Fri, 28 Feb 2020 12:58:16 wechat_hooker.py[line:49] WARNING  Found target group: test
+Fri, 28 Feb 2020 12:58:16 wechat_hooker.py[line:70] WARNING  Send a msg to target group: Hi I am too hungry..
+Fri, 28 Feb 2020 13:01:04 wechat_hooker.py[line:49] WARNING  Found target group: test
+Fri, 28 Feb 2020 13:01:05 wechat_hooker.py[line:70] WARNING  Send a msg to target group: Hi I am too hungry..
