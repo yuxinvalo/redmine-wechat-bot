@@ -33,3 +33,10 @@ pip install -r requirements.txt
 ```
 
 5. Wait a little, scan the qr code in the console and login. Attention: some wechat can't log in because of invalid account login web wechat ...
+
+## Run app not hang up
+If you want to run app without occupy your terminal, you can use nohup:
+```bash
+touch log/out.log
+nohup python main.py > log/out.log 2>&1 &
+```
