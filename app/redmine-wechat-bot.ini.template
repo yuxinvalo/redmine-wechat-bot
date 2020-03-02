@@ -19,14 +19,22 @@ ISSUE_TIMER=-1
 # REDMINE_WATCHER=account_login
 # REDMINE_WATCHER_PASSWD=account_passwd
 # REMINE_KEY=redmine_key
-
-
 ACCESS_MODE=key
 REMINE_KEY=2ec2d81e708a4428a002c3ebe6f26a641575cb2c
 
 
+# Set filter, app supports filter issues by priority and status
+# STATUS you can find it in Administration->Issu statues, seperating by a comma
+# If you want to watch all priority or status, just set it as -1
+# PRIORITY='High,Low,Normal,Urgent,Immediate'
+# STATUS='New,In Progress,Resolved,Feedback,Closed,Rejected,...'/ -1
+
+PRIORITY=High,Urgent,Immediate
+STATUES=In Progress,NewMeeting Approved,Reopen
+
+
 # Set scan frequency by second
-TRACK_FREQ=30
+TRACK_FREQ=180
 
 # Wechat target group name, which group you want to send your msg
 # GROUP_NAME=example

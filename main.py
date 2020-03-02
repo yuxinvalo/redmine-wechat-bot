@@ -22,6 +22,9 @@ groupName = 'GROUP_NAME'
 targetProjectName = 'TARGET_PROJECT_NAME'
 trackFreq = 'TRACK_FREQ'
 issueTimer = 'ISSUE_TIMER'
+delay='DELAY'
+priority='PRIORITY'
+statuesIssues='STATUES'
 
 
 def testRedmine():
@@ -35,7 +38,6 @@ def testRedmine():
         paroleAll = blablaUpdateIssue(targetIssues)
     except Exception as e:
         traceback.print_tb(e.__traceback__)
-#         log(2, "Oopus, error occurs! Error: " + str(e))
         logger.critical("Oopus, error occurs! Error: " + str(e))
     return paroleAll
 
@@ -54,10 +56,9 @@ def testWechat(bot):
             talkToGroup(targetGroup, parole, loggerWechat)
     else:
         logger.info("Can not locate target group or no update messege.")
-    # bot.join()
+
 
 def timerController(bot, lastWatchTime):
-    # trigger = True
 
     # Get configurations
     envVar = getEnvVariable()
@@ -73,26 +74,20 @@ def timerController(bot, lastWatchTime):
         raise Exception("Can not locate project: " + projectName +  ", please check confi project name at app/redmine-wechat-bot.ini.")
     logger.debug("Got target project id...")
 
-    #Create wechat logger to send log to wechat object
-    # loggerWechat = createWechatLogger(bot)
-    # if loggerWechat:
-    #     logger.info("Wechat logger is  created.")
-    #     loggerWechat.info("Wechat logger is created.")
-    # else:
-    #     logger.warning("Can not create wechat logger.")
-
     # Find target wechat group,  if  it shows that no group found, maybe you should speak in group or change group name to activate group search
     targetGroup= getTargetGroup(bot, None)
     if targetGroup == None:
         raise Exception("Target wechat group" + envVar[groupName] + " no found.")
     logger.debug("Target wechat group found...")
 
+
     while bot.alive:
         logger.warning("Start scanning at " + str(datetime.datetime.now()) +"...last watch time is: " + str(lastWatchTime))
         paroleAll = []
         try :
             # Watch updated issues after last watch time
-            targetIssues = getTargetIssues(redmine, envVar[targetProjectName], projectId, envVar[issueTimer], lastWatchTime)
+            targetIssues = getTargetIssues(redmine, envVar[targetProjectName], projectId, envVar[issueTimer], lastWatchTime, \
+                                           envVar[priority], envVar[statuesIssues] )
             logger.debug("Found updated issues : " + str(len(targetIssues)))
             for issue  in targetIssues:
                 logger.debug("issue " + str(issue.id) + " was updated on " + str(issue.updated_on) + " and last watch time:" + str(lastWatchTime))
@@ -119,7 +114,8 @@ def timerController(bot, lastWatchTime):
 if __name__== "__main__":
     # testRedmine()
     logger.info("Init wechat bot ...")
-    lastWatchTime = datetime.datetime.now() -  datetime.timedelta(hours=1, seconds=100)
+    envVar = getEnvVariable()
+    lastWatchTime = datetime.datetime.now() -  datetime.timedelta(hours=int(envVar[delay]), seconds=300)
     logger.info("Timer starts from " + str(lastWatchTime))
     bot = None
 
